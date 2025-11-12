@@ -1,18 +1,20 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Hero from './components/Hero'; // New component
+import Hero from './components/Hero';
 import FoodList from './components/FoodList';
 import FoodFormModal from './components/FoodFormModal';
 import DeleteConfirmationModal from './components/DeleteConfirmationModal';
-import { foodService } from './services/foodService';
 import { FoodItem, FoodFormState } from './types';
+import { AppDispatch, RootState } from './store';
+import { fetchFoods, createFood, updateFood, deleteFood } from './store/foodsSlice';
 
 const App: React.FC = () => {
-  const [foods, setFoods] = useState<FoodItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const { items: foods, isLoading, error } = useSelector((state: RootState) => state.foods);
+  
   const [searchTerm, setSearchTerm] = useState<string>('');
   
   const [isFormModalOpen, setIsFormModalOpen] = useState<boolean>(false);
@@ -23,93 +25,76 @@ const App: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-  const fetchFoods = useCallback(async (term: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      // API returns results in reverse chronological order, let's reverse to show oldest first
-      const data = (await foodService.getFoods(term)).reverse();
-      setFoods(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
   const debouncedFetch = useMemo(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
     return (term: string) => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        fetchFoods(term);
+        dispatch(fetchFoods(term));
       }, 300);
     };
-  }, [fetchFoods]);
+  }, [dispatch]);
 
   useEffect(() => {
-    fetchFoods('');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(fetchFoods(''));
+  }, [dispatch]);
 
-  const handleSearchChange = (value: string) => {
+  const handleSearchChange = useCallback((value: string) => {
     setSearchTerm(value);
     debouncedFetch(value);
-  };
+  }, [debouncedFetch]);
   
-  const handleOpenAddModal = () => {
+  const handleOpenAddModal = useCallback(() => {
     setSelectedFood(null);
     setIsFormModalOpen(true);
-  };
+  }, []);
   
-  const handleOpenEditModal = (food: FoodItem) => {
+  const handleOpenEditModal = useCallback((food: FoodItem) => {
     setSelectedFood(food);
     setIsFormModalOpen(true);
-  };
+  }, []);
   
-  const handleOpenDeleteModal = (food: FoodItem) => {
+  const handleOpenDeleteModal = useCallback((food: FoodItem) => {
     setSelectedFood(food);
     setIsDeleteModalOpen(true);
-  };
+  }, []);
   
-  const handleCloseModals = () => {
+  const handleCloseModals = useCallback(() => {
     setIsFormModalOpen(false);
     setIsDeleteModalOpen(false);
     setSelectedFood(null);
-  };
+  }, []);
   
-  const handleFormSubmit = async (formData: FoodFormState) => {
+  const handleFormSubmit = useCallback(async (formData: FoodFormState) => {
     setIsSubmitting(true);
-    setError(null);
+    const action = selectedFood
+      ? updateFood({ id: selectedFood.id, formData })
+      : createFood(formData);
+
     try {
-      if (selectedFood) {
-        await foodService.updateFood(selectedFood.id, formData);
-      } else {
-        await foodService.createFood(formData);
-      }
+      await dispatch(action).unwrap();
       handleCloseModals();
-      await fetchFoods(searchTerm); // Refresh list
+      await dispatch(fetchFoods(searchTerm));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save item');
+      console.error('Failed to save item:', err);
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [dispatch, selectedFood, searchTerm, handleCloseModals]);
   
-  const handleDeleteConfirm = async () => {
+  const handleDeleteConfirm = useCallback(async () => {
     if (!selectedFood) return;
     setIsDeleting(true);
-    setError(null);
     try {
-      await foodService.deleteFood(selectedFood.id);
+      await dispatch(deleteFood(selectedFood.id)).unwrap();
       handleCloseModals();
-      await fetchFoods(searchTerm); // Refresh list
+      await dispatch(fetchFoods(searchTerm));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete item');
+      console.error('Failed to delete item:', err);
     } finally {
       setIsDeleting(false);
     }
-  };
+  }, [dispatch, selectedFood, searchTerm, handleCloseModals]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">

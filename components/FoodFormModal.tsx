@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import Modal from './Modal';
 import Spinner from './Spinner';
 import { FoodItem, FoodFormState, FormErrors } from '../types';
@@ -161,11 +162,11 @@ const FoodFormModal: React.FC<FoodFormModalProps> = ({
                 </div>
             </div>
         </div>
-        <div className="px-6 sm:px-8 py-6 mt-4 flex justify-center items-center space-x-4">
-          <button type="submit" data-test-id="food-submit-btn" disabled={isSubmitting} className="w-40 inline-flex items-center justify-center rounded-lg border border-transparent bg-gradient-to-b from-yellow-400 to-orange-500 px-10 py-3 text-base font-medium text-white shadow-lg shadow-orange-500/40 transition-all hover:shadow-xl hover:shadow-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed">
+        <div className="px-6 sm:px-8 py-6 mt-4 flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4">
+          <button type="submit" data-test-id="food-submit-btn" disabled={isSubmitting} className="w-full sm:w-40 inline-flex items-center justify-center rounded-lg border border-transparent bg-gradient-to-b from-yellow-400 to-orange-500 px-10 py-3 text-base font-medium text-white shadow-lg shadow-orange-500/40 transition-all hover:shadow-xl hover:shadow-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed">
             {isSubmitting ? <><Spinner className="w-5 h-5 mr-2" /> {loadingText}</> : submitButtonText}
           </button>
-          <button type="button" onClick={onClose} disabled={isSubmitting} className="w-40 inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-10 py-3 text-base font-medium text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50">
+          <button type="button" onClick={onClose} disabled={isSubmitting} className="w-full sm:w-40 inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-10 py-3 text-base font-medium text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50">
             Cancel
           </button>
         </div>
@@ -174,4 +175,4 @@ const FoodFormModal: React.FC<FoodFormModalProps> = ({
   );
 };
 
-export default FoodFormModal;
+export default memo(FoodFormModal);

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, memo } from 'react';
 import FoodCard from './FoodCard';
 import Spinner from './Spinner';
 import { FoodItem } from '../types';
@@ -73,4 +74,4 @@ const FoodList: React.FC<FoodListProps> = ({ foods, isLoading, error, onEdit, on
   );
 };
 
-export default FoodList;
+export default memo(FoodList);

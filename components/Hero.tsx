@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, memo } from 'react';
 
 interface HeroProps {
   searchTerm: string;
@@ -73,4 +74,4 @@ const Hero: React.FC<HeroProps> = ({ searchTerm, onSearchChange }) => {
   );
 };
 
-export default Hero;
+export default memo(Hero);

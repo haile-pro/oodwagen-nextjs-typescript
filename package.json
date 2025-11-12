@@ -11,6 +11,8 @@
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "@reduxjs/toolkit": "^2.2.6",
+    "react-redux": "^9.1.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@jest/globals": "^30.2.0",
     "@testing-library/react": "^16.3.0"

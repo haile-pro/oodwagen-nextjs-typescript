@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo } from 'react';
 import { FoodItem } from '../types';
 
 interface FoodCardProps {
@@ -47,11 +47,11 @@ const FoodCard: React.FC<FoodCardProps> = ({ food, onEdit, onDelete, index }) =>
 
   return (
     <article 
-      className="food-card bg-white rounded-lg overflow-hidden flex flex-col group border border-gray-200 transition-all duration-150 ease-out group-hover:shadow-xl hover:border-orange-300 food-card-animate"
+      className="food-card bg-white rounded-lg overflow-hidden flex flex-col group border border-gray-200 transition-all duration-150 ease-out hover:shadow-xl hover:border-orange-300 food-card-animate"
       style={{ animationDelay: `${index * 50}ms` }}
       >
       <div className="relative">
-        <img className="w-full h-48 object-cover" src={food.image || 'https://placehold.co/400x200'} alt={food.name} />
+        <img className="w-full h-48 object-cover" src={food.image || 'https://placehold.co/400x200'} alt={food.name} loading="lazy" />
         <div className="food-price absolute top-4 left-4 bg-orange-500 text-white text-sm font-bold px-2.5 py-1 rounded-md flex items-center gap-1.5">
           <TagIcon />
           <span>${food.price}</span>
@@ -62,7 +62,7 @@ const FoodCard: React.FC<FoodCardProps> = ({ food, onEdit, onDelete, index }) =>
         <div>
             <div className="flex justify-between items-start gap-3">
                 {food.restaurant && (
-                    <img src={food.restaurant.logo || 'https://placehold.co/40x40'} alt={food.restaurant.name ? `${food.restaurant.name} logo` : 'Restaurant logo'} className="restaurant-logo w-10 h-10 rounded-md object-cover flex-shrink-0" />
+                    <img src={food.restaurant.logo || 'https://placehold.co/40x40'} alt={food.restaurant.name ? `${food.restaurant.name} logo` : 'Restaurant logo'} className="restaurant-logo w-10 h-10 rounded-md object-cover flex-shrink-0" loading="lazy" />
                 )}
                 <div className="flex-grow min-w-0">
                     <h3 className="food-name text-md font-bold text-gray-800 truncate" title={food.name}>{food.name}</h3>
@@ -115,4 +115,4 @@ const FoodCard: React.FC<FoodCardProps> = ({ food, onEdit, onDelete, index }) =>
     </article>
   );
 };
-export default FoodCard;
+export default memo(FoodCard);

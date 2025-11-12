@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { memo } from 'react';
 import Modal from './Modal';
 import Spinner from './Spinner';
 import { FoodItem } from '../types';
@@ -49,4 +50,4 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
   );
 };
 
-export default DeleteConfirmationModal;
+export default memo(DeleteConfirmationModal);

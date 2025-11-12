@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { memo } from 'react';
 
 const Header: React.FC<{ onAddFood: () => void }> = ({ onAddFood }) => {
   return (
@@ -9,7 +10,7 @@ const Header: React.FC<{ onAddFood: () => void }> = ({ onAddFood }) => {
       <header className="container mx-auto flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <div className="flex items-center space-x-2">
           <img
-            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBmaWxsPSIjZjU5ZTBiIj48cGF0aCBkPSJNNDY0IDEyOGgtMzJ2LTQ4YzAtMTcuNjctMTQuMzMtMzItMzItMzJIMTEyYy0xNy42NyAwLTMyIDE0LjMzLTMyIDMydjQ4SDQ4Yy0yNi41MSAwLTQ4IDIxLjQ5LTQ4IDQ4djIyNGMwIDI2LjUxIDIxLjQ5IDQ4IDQ4IDQ4aDE2di02NGMwLTM1LjM1IDI4LjY1LTY0IDY0LTY0aDE5MmMzNS4zNSAwIDY0IDI4LjY1IDY0IDY0djY0aDE2YzI2LjUxIDAgNDgtMjEuLjQ5IDQ4LTQ4VjE3NmMwLTI2LjUxLTIxLjQ5LTQ4LTQ4LTQ4ek0xMjggMzUyYy0xNy42NyAwLTMyIDE0LjMzLTMyIDMyczE0LjMzIDMyIDMyIDMyIDMyLTE0LjMzIDMyLTMyLTE0LjMzLTMyLTMyLTMyem0yNTYgMGMtMTcuNjcgMC0zMiAxNC4zMy0zMiAzMnMxNC4zMyAzMiAzMiAzMiAzMi0xNC4zMyAzMi0zMi0xNC4zMy0zMi0zMi0zMnptMzItMTYwaC0zMnYtMzJjMC04Ljg0LTcuMTYtMTYtMTYtMTZoLTMyYy04Ljg0IDAtMTYgNy4xNi0xNiAxNnYzMmgtMzJ2LTMyYzAtOC44NC03LjE2LTE2LTE2LTE2aC0zMmMtOC44NCAwLTE2IDcuMTYtMTYgMTZ2MzJoLTMydi0zMmMwLTguODQtNy4xNi0xNi0xNi0xNmgtMzJjLTguODQgMC0xNiA3LjE2LTE2IDE2djMyaC0zMnYtOTZoMjU2djk2eiIvPjwvc3ZnPg=="
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBmaWxsPSIjZjU5ZTBiIj48cGF0aCBkPSJNNDY0IDEyOGgtMzJ2LTQ4YzAtMTcuNjctMTQuMzMtMzItMzItMzJIMTEyYy0xNy42NyAwLTMyIDE0LjMzLTMyIDMydjQ4SDQ4Yy0yNi41MSAwLTQ4IDIxLjQ5LTQ4IDQ4djIyNGMwIDI2LjUxIDIxLjQ5IDQ4IDQ4IDQ4aDE2di02NGMwLTM1LjM1IDI4LjY1LTY0IDY0LTY0aDE5MmMzNS4zNSAwIDY0IDI4LjY1IDY0IDY0djY0aDE2YzI2LjUxIDAgNDgtMjEuLjQ5IDQ4LTQ4VjE3NmMwLTI2LjUxLTIxLjQ5LTQ4LTQ4LTQ4ek0xMjggMzUyYy0xNy42NyAwLTMyIDE0LjMzLTMyIDMyczE0LjMzIDMyIDMyIDMyIDMyLTE0LjMzIDMyLTMyLTE0LjMzLTMyLTMyLTMyem0yNTYgMGMtMTcuNjcgMC0zMiAxNC4zMy0zMiAzMnMxNC4zMyAzMiAzMiAzMiAzMi0xNC4zMyAzMi0zMi0xNC4zMy0zMi0zMi0zMnptMzItMTYwaC0zMnYtMzJjMC04Ljg0LTcuMTYtMTYtMTYtMTZoLTMyYy04Ljg0IDAtMTYgNy4xNi0xNiAxNnYzMmgtMzJ2LTMyYzAtOC48NC03LjE2LTE2LTE2LTE2aC0zMmMtOC44NCAwLTE2IDcuMTYtMTYgMTZ2MzJoLTMydi0zMmMwLTguODQtNy4xNi0xNi0xNi0xNmgtMzJjLTguODQgMC0xNiA3LjE2LTE2IDE2djMyaC0zMnYtOTZoMjU2djk2eiIvPjwvc3ZnPg=="
             alt="FoodWagen Logo"
             className="h-8 w-8"
           />
@@ -32,4 +33,4 @@ const Header: React.FC<{ onAddFood: () => void }> = ({ onAddFood }) => {
   );
 };
 
-export default Header;
+export default memo(Header);

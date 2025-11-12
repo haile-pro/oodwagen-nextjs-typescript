@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -28,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-xl w-full max-w-lg m-4 transform transition-all"
+        className="bg-white rounded-lg shadow-xl w-full max-w-md m-4 sm:max-w-lg transform transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         {children}
@@ -37,4 +37,4 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   );
 };
 
-export default Modal;
+export default memo(Modal);

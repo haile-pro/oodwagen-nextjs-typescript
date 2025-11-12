@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { memo } from 'react';
 
 interface SpinnerProps {
   className?: string;
@@ -12,6 +12,7 @@ const Spinner: React.FC<SpinnerProps> = ({ className = 'w-5 h-5' }) => {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
+      role="status"
     >
       <circle
         className="opacity-25"
@@ -30,4 +31,4 @@ const Spinner: React.FC<SpinnerProps> = ({ className = 'w-5 h-5' }) => {
   );
 };
 
-export default Spinner;
+export default memo(Spinner);
