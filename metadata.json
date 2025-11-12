@@ -1,0 +1,5 @@
+{
+  "name": "Food Wagen",
+  "description": "A modern web application to browse, search, and manage a list of food items. Users can add, edit, and delete food items through an intuitive interface, with data fetched from a mock API.",
+  "requestFramePermissions": []
+}
