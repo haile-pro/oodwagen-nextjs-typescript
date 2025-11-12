@@ -8,7 +8,7 @@ This project was developed as part of the **A2SV Technical Interview Challenge**
 ---
 
 ## 🚀 Live Demo
-👉 **[View Deployed App](https://your-vercel-deployment-link.vercel.app/)**  
+👉 **[View Deployed App](https://foodwagen-nextjs-typescript.vercel.app/)**  
 *(Replace with your actual deployed link on Vercel)*
 
 ---
@@ -68,5 +68,5 @@ Error messages follow strict naming conventions (e.g., `id="food-name-error"`, `
 
 Clone the repository:
 ```bash
-git clone https://github.com/yourusername/foodwagen-nextjs-typescript.git
+git clone https://github.com/haile-pro/oodwagen-nextjs-typescript.git
 cd foodwagen-nextjs-typescript
